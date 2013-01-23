@@ -38,11 +38,12 @@ class WatermarkEngineBase(ThumbnailEngineBase):
 
         Takes care of all the options handling.
         """
-        if not THUMBNAIL_WATERMARK:
-            raise AttributeError('Trying to apply a watermark, '
-                                 'however no THUMBNAIL_WATERMARK defined')
-        watermark_path = os.path.join(STATIC_ROOT, THUMBNAIL_WATERMARK)
-
+        
+        if not 'watermark' in options
+            watermark_path = os.path.join(STATIC_ROOT, THUMBNAIL_WATERMARK)
+        else:
+            watermark_path = os.path.join(STATIC_ROOT, options['watermark'])
+                                     
         if not 'watermark_alpha' in options:
             options['watermark_alpha'] = THUMBNAIL_WATERMARK_OPACITY
 
