@@ -39,7 +39,7 @@ class WatermarkEngineBase(ThumbnailEngineBase):
         Takes care of all the options handling.
         """
         
-        if not 'watermark' in options
+        if not 'watermark' in options:
             watermark_path = os.path.join(STATIC_ROOT, THUMBNAIL_WATERMARK)
         else:
             watermark_path = os.path.join(STATIC_ROOT, options['watermark'])
@@ -59,4 +59,5 @@ class WatermarkEngineBase(ThumbnailEngineBase):
 
         return self._watermark(image, watermark_path,
                                options['watermark_alpha'],
-                               options['watermark_size'])
+                               options['watermark_size'],
+                               options['watermark_pos'])

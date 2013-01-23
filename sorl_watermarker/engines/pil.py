@@ -14,7 +14,7 @@ class Engine(WatermarkEngineBase, PILEngine):
 
     # the following is heavily copied from
     # http://code.activestate.com/recipes/362879-watermark-with-pil/
-    def _watermark(self, image, watermark_path, opacity, size): #, position):
+    def _watermark(self, image, watermark_path, opacity, size, position):
                    #mark_width, mark_height):
         watermark = self.get_image(open(watermark_path))
         if opacity < 1:
@@ -39,7 +39,10 @@ class Engine(WatermarkEngineBase, PILEngine):
                                                           'upscale': False})
 
         layer = Image.new('RGBA', im_size, (0,0,0,0))
-        position = (im_size[0]-mark_size[0], im_size[1]-mark_size[1])
+        if position == 'center':
+            position = ( int(im_size[0]/2-mark_size[0]/2) , int( im_size[1]/2-mark_size[1]/2) )
+        else:
+            position = (im_size[0]-mark_size[0], im_size[1]-mark_size[1])
         layer.paste(watermark, position)
         return Image.composite(layer, image, layer)
 
